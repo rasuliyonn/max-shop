@@ -1,29 +1,52 @@
-import React from "react";
+import { useState } from "react";
 import { useCartStore } from "../managment/useBasket";
 import Card from "./Card";
+import Footer from "./Footer";
 
-const News = () => {
-  const carts = useCartStore((state) => state.product);
+const All = () => {
+  const allProducts = useCartStore((state) => state.product);
+  const [sort, setSort] = useState("default");
+
+  const sorted = [...allProducts].sort((a, b) => {
+    if (sort === "price-asc") return parseInt(a.price) - parseInt(b.price);
+    if (sort === "price-desc") return parseInt(b.price) - parseInt(a.price);
+    if (sort === "name") return a.title.localeCompare(b.title, "ru");
+    return 0;
+  });
+
   return (
-    <div>
-      <div className="text-5xl font-bold text-center mt-2 md:mt-16">
-        Все товары
+    <>
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-8 md:mt-16 mb-8 gap-4">
+          <h1 className="text-3xl md:text-5xl font-bold">Все товары</h1>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="border border-gray-300 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-indigo-400 bg-white cursor-pointer"
+          >
+            <option value="default">По умолчанию</option>
+            <option value="price-asc">Цена: по возрастанию</option>
+            <option value="price-desc">Цена: по убыванию</option>
+            <option value="name">По названию</option>
+          </select>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {sorted.map((item) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              img_src={item.img_url}
+              name={item.title}
+              price={item.price}
+              colors={item.colors}
+              category={item.category}
+            />
+          ))}
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 container mx-auto mt-14 gap-5">
-        {carts.map((item, index) => (
-          <Card
-            key={index}
-            id={item.id}
-            name={item.title}
-            price={item.price}
-            img_src={item.img_url}
-            colors={item.colors}
-          />
-        ))}
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
-export default News;
+export default All;

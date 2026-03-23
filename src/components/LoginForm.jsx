@@ -1,36 +1,70 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!login.trim() || !password.trim()) {
+      setError("Заполните все поля");
+      return;
+    }
+    setError("");
+    // TODO: auth logic
+  };
+
   return (
-    <div className="items-center justify-center flex mx-auto container mt-20">
-      <div className="h-90 w-84 bg-black text-white grid items-center justify-center text-center rounded-2xl p-5">
-        <div className="text-4xl font-bold">Авторизация</div>
-        <div>Логин</div>
-        <input
-          type="text"
-          className="h-12 bg-white w-76 text-black p-2"
-          value={login}
-          defaultValue={""}
-          onChange={(e) => setLogin(e.target.value)}
-        />
-        <div>Пароль</div>
-        <input
-          type="passwor"
-          className="h-12 w-76 bg-white text-black p-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="bg-white text-black p-4 rounded-2xl mt-2.5">
-          Войти
-        </button>
-        <button className="mt-2.5" onClick={() => navigate(`/reg`)}>
-          Зарегистрироваться{" "}
-        </button>
+    <div className="min-h-[70vh] flex items-center justify-center px-4">
+      <div className="w-full max-w-sm">
+        <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+          <h1 className="text-3xl font-bold mb-6 text-center">Вход</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Логин
+              </label>
+              <input
+                type="text"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-400 transition-colors"
+                placeholder="Введите логин"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Пароль
+              </label>
+              <input
+                type="password"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-400 transition-colors"
+                placeholder="Введите пароль"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <button type="submit" className="btn-primary w-full py-3 mt-2">
+              Войти
+            </button>
+          </form>
+          <p className="text-center text-sm text-gray-500 mt-5">
+            Нет аккаунта?{" "}
+            <button
+              className="text-indigo-500 font-medium hover:underline"
+              onClick={() => navigate("/reg")}
+            >
+              Зарегистрироваться
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
+
 export default LoginForm;
