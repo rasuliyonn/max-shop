@@ -1,3 +1,5 @@
+//Max-Shop
+
 import Header from "./components/Header";
 import Slider from "./components/Slider";
 import LoginForm from "./components/LoginForm";
