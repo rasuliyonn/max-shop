@@ -1,16 +1,21 @@
-import { useState } from "react";
 import { useCartStore } from "../managment/useBasket";
+import { useSearchParams } from "react-router-dom";
 import Card from "./Card";
 import Footer from "./Footer";
 
 const All = () => {
   const allProducts = useCartStore((state) => state.product);
-  const [sort, setSort] = useState("default");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort") || "default";
+
+  const setSort = (value) => {
+    setSearchParams(value === "default" ? {} : { sort: value });
+  };
 
   const sorted = [...allProducts].sort((a, b) => {
     if (sort === "price-asc") return parseInt(a.price) - parseInt(b.price);
     if (sort === "price-desc") return parseInt(b.price) - parseInt(a.price);
-    if (sort === "name") return a.title.localeCompare(b.title, "ru");
+    if (sort === "name") return a.title.localeCompare(b.title, "tj");
     return 0;
   });
 
@@ -31,15 +36,18 @@ const All = () => {
           </select>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {sorted.map((item) => (
+          {sorted.map((item, index) => (
             <Card
-              key={item.id}
+              key={index}
               id={item.id}
               img_src={item.img_url}
               name={item.title}
               price={item.price}
               colors={item.colors}
               category={item.category}
+              sizes={item.sizes}
+              description={item.description}
+              brand={item.brand}
             />
           ))}
         </div>

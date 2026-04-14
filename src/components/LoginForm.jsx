@@ -14,7 +14,6 @@ const LoginForm = () => {
       return;
     }
     setError("");
-    // TODO: auth logic
   };
 
   return (

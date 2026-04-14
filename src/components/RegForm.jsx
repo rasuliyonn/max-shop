@@ -16,7 +16,6 @@ const RegForm = () => {
       return;
     }
     setError("");
-    // TODO: registration logic
   };
 
   return (
@@ -32,7 +31,7 @@ const RegForm = () => {
               <input
                 type="tel"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-400 transition-colors"
-                placeholder="+7 (999) 000-00-00"
+                placeholder="+992 000 000 000"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
               />
@@ -44,7 +43,7 @@ const RegForm = () => {
               <input
                 type="text"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm outline-none focus:border-indigo-400 transition-colors"
-                placeholder="Иван Иванов"
+                placeholder="Курбонов Курбон"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />

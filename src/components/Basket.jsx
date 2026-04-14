@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Basket = () => {
   const carts = useCartStore((state) => state.carts);
   const navigate = useNavigate();
-  const total = carts.reduce((acc, item) => acc + parseInt(item.price), 0);
+  const total = carts.reduce((acc, item) => acc + parseInt(item.price) * (item.quantity || 1), 0);
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -28,7 +28,6 @@ const Basket = () => {
         </div>
       ) : (
         <div className="md:flex gap-10">
-          {/* Cart items */}
           <div className="flex-1 divide-y divide-gray-100">
             {carts.map((item, index) => (
               <BasketDes
@@ -38,22 +37,26 @@ const Basket = () => {
                 name={item.name}
                 price={item.price}
                 color={item.color}
+                size={item.size}
+                sizes={item.sizes}
+                description={item.description}
+                brand={item.brand}
+                quantity={item.quantity || 1}
               />
             ))}
           </div>
 
-          {/* Order summary */}
-          <div className="md:w-72 mt-10 md:mt-0 flex-shrink-0">
+          <div className="md:w-72 mt-10 md:mt-0 ">
             <div className="bg-gray-50 rounded-2xl p-6 sticky top-24">
               <h2 className="text-xl font-bold mb-4">Итого</h2>
               <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>Товары ({carts.length})</span>
+                <span>Товары ({carts.reduce((acc, item) => acc + (item.quantity || 1), 0)})</span>
                 <span>{total} ₽</span>
               </div>
               <div className="border-t border-gray-200 pt-4 mt-4">
                 <div className="flex justify-between font-bold text-lg">
                   <span>К оплате</span>
-                  <span className="text-indigo-600">{total} ₽</span>
+                  <span className="text-indigo-600">{total} с</span>
                 </div>
               </div>
               <button className="btn-primary w-full mt-6 py-4 text-base">

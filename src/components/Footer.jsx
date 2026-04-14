@@ -23,7 +23,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Catalog */}
           <div>
             <div className="font-semibold text-sm mb-4">Каталог</div>
             <div className="flex flex-col gap-2 text-sm text-gray-500">
@@ -48,7 +47,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Help */}
           <div>
             <div className="font-semibold text-sm mb-4">Помощь</div>
             <div className="flex flex-col gap-2 text-sm text-gray-500">
@@ -58,7 +56,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Company */}
           <div>
             <div className="font-semibold text-sm mb-4">О нас</div>
             <div className="flex flex-col gap-2 text-sm text-gray-500">

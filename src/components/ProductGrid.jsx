@@ -12,15 +12,19 @@ const ProductGrid = ({ products, title }) => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((item) => (
+          {products.map((item, index) => (
             <Card
-              key={item.id}
+              key={index}
               id={item.id}
               img_src={item.img_url}
               name={item.title}
               price={item.price}
               colors={item.colors}
               category={item.category}
+              brand={item.brand}
+              description={item.description}
+              characteristics={item.characteristics}
+              sizes={item.sizes}
             />
           ))}
         </div>

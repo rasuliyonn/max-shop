@@ -6,11 +6,7 @@ import LoginForm from "./components/LoginForm";
 import RegForm from "./components/RegForm";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
-import {
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Card from "./components/Card";
 import Basket from "./components/Basket";
 import ProductPage from "./components/ProoductPage";
@@ -18,18 +14,31 @@ import { useCartStore } from "./managment/useBasket";
 import News from "./components/News";
 import OnSale from "./components/OnSale";
 import All from "./components/All";
-
+import Brands from "./components/Brands";
+import brandLogos from "./conts/brandLogo";
+import Popular from "./components/Popular";
+import BrandPage from "./components/BrandPage";
 const Home = () => {
+  const brandsArray = Object.entries(brandLogos).map(([brand, logo]) => ({
+    brand,
+    logo,
+  }));
   const navigate = useNavigate();
   const product = useCartStore((state) => state.product);
-  const newProducts = product.filter((item) => item.category === "new").slice(0, 4);
-  const saleProducts = product.filter((item) => item.category === "on_sale").slice(0, 4);
-
+  const newProducts = product
+    .filter((item) => item.category === "new")
+    .slice(0, 4);
+  const saleProducts = product
+    .filter((item) => item.category === "on_sale")
+    .slice(0, 4);
+  const brends = brandLogos;
+  const popular = product
+    .filter((item) => item.category === "popular")
+    .slice(0, 4);
   return (
     <>
       <Slider />
-
-      {/* New products section */}
+      <Brands brands={brandsArray} />
       <div className="container mx-auto px-4 mt-12 md:mt-16">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-4xl font-bold">Новые товары</h2>
@@ -50,12 +59,14 @@ const Home = () => {
               price={item.price}
               colors={item.colors}
               category={item.category}
+              sizes={item.sizes}
+              description={item.description}
+              brand={item.brand}
+              characteristics={item.characteristics}
             />
           ))}
         </div>
       </div>
-
-      {/* Sale section */}
       <div className="container mx-auto px-4 mt-16 md:mt-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl md:text-4xl font-bold">Распродажа</h2>
@@ -76,11 +87,42 @@ const Home = () => {
               price={item.price}
               colors={item.colors}
               category={item.category}
+              sizes={item.sizes}
+              description={item.description}
+              brand={item.brand}
+              characteristics={item.characteristics}
             />
           ))}
         </div>
       </div>
-
+      <div className="container mx-auto px-4 mt-16 md:mt-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl md:text-4xl font-bold">Популярные товары</h2>
+          <button
+            className="btn-outline text-sm"
+            onClick={() => navigate("/popular")}
+          >
+            Смотреть все
+          </button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {popular.map((item) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              img_src={item.img_url}
+              name={item.title}
+              price={item.price}
+              colors={item.colors}
+              category={item.category}
+              sizes={item.sizes}
+              description={item.description}
+              brand={item.brand}
+              characteristics={item.characteristics}
+            />
+          ))}
+        </div>
+      </div>
       <Footer />
     </>
   );
@@ -96,6 +138,9 @@ const App = () => {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/news" element={<News />} />
         <Route path="/on_sale" element={<OnSale />} />
+        <Route path="/popular" element={<Popular />} />
+        <Route path="/brand/:name" element={<BrandPage />} />
+
         <Route path="/all" element={<All />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/reg" element={<RegForm />} />
