@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import products from "../conts/products";
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const categoryLabel = {
   on_sale: { text: "Скидка", color: "bg-red-500" },
   new: { text: "Новинка", color: "bg-indigo-500" },
@@ -14,7 +15,7 @@ const slides = [
   ...products.filter((p) => p.category === "popular").slice(0, 1),
 ];
 
-export default function Slider() {
+export default function Slider({ loading }) {
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const navigate = useNavigate();
@@ -37,7 +38,9 @@ export default function Slider() {
   const slide = slides[index];
   const label = categoryLabel[slide.category];
 
-  return (
+  return loading ? (
+    <Skeleton />
+  ) : (
     <div className="w-full relative overflow-hidden mx-auto container rounded-3xl mt-5 mb-6">
       <div
         className={`relative w-full h-48 sm:h-64 md:h-80 lg:h-96 transition-opacity duration-500 ${
@@ -49,7 +52,8 @@ export default function Slider() {
           alt={slide.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+
+        <div className="absolute inset-0  from-black/60 via-black/30 to-transparent" />
 
         <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 md:px-14 max-w-lg">
           <span

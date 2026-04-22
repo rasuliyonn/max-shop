@@ -63,7 +63,7 @@ const Header = () => {
     { label: "Все товары", path: "/all" },
     { label: "Распродажа", path: "/on_sale" },
     { label: "Новые товары", path: "/news" },
-    {label:"Популярные товары",path:"popular"}
+    { label: "Популярные товары", path: "/popular" },
   ];
 
   return (

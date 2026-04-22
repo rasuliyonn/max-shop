@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max.Shop - Презентация дипломного проекта</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            height: 90vh;
+            max-height: 900px;
+        }
+
+        .slides-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px;
+            animation: slideIn 0.5s ease-in-out;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Slide Styles */
+        .slide-title {
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: 4em;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide-title p {
+            font-size: 1.5em;
+            color: var(--gray-600);
+            margin-bottom: 40px;
+        }
+
+        .slide-title .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+
+        .slide h2 {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .content-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .content-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .content-box ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .content-box li {
+            padding: 8px 0;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+        }
+
+        .content-box li:last-child {
+            border-bottom: none;
+        }
+
+        .content-box li::before {
+            content: '✓';
+            display: inline-block;
+            margin-right: 10px;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #10b981;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin: 20px 0;
+        }
+
+        .architecture-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .diagram-layer {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+
+        .diagram-arrow {
+            text-align: center;
+            color: var(--primary);
+            font-size: 1.5em;
+            margin: 5px 0;
+        }
+
+        /* Navigation */
+        .nav-panel {
+            width: 280px;
+            background: var(--gray-900);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            overflow-y: auto;
+        }
+
+        .nav-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .slide-counter {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: var(--primary);
+        }
+
+        .slide-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .slide-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+            color: #ccc;
+            border-left: 3px solid transparent;
+        }
+
+        .slide-item:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: white;
+        }
+
+        .slide-item.active {
+            background: var(--primary);
+            color: white;
+            border-left-color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .nav-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .btn-prev, .btn-next {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-prev:hover, .btn-next:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-prev:disabled, .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--gray-600);
+            font-size: 0.9em;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        /* Flow diagram */
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flow-step {
+            background: var(--primary);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-weight: 500;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: var(--primary);
+        }
+
+        /* Two column layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .two-column-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .two-column-item h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid var(--warning);
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .highlight strong {
+            color: #856404;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .presentation-container {
+                flex-direction: column;
+                max-height: none;
+            }
+
+            .nav-panel {
+                width: 100%;
+                flex-direction: row;
+                padding: 15px;
+                max-height: 80px;
+            }
+
+            .slide-list {
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+                margin-bottom: 0;
+                flex: 1;
+            }
+
+            .slide-item {
+                min-width: 120px;
+                margin-bottom: 0;
+            }
+
+            .slide {
+                padding: 40px;
+            }
+
+            .slide h1 {
+                font-size: 2.5em;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+
+            .slide h2 {
+                font-size: 1.8em;
+            }
+
+            .slide-title h1 {
+                font-size: 2.5em;
+            }
+
+            .nav-panel {
+                order: 2;
+            }
+
+            .slides-container {
+                order: 1;
+            }
+
+            .code-block {
+                font-size: 0.75em;
+            }
+        }
+
+        .scrollbar-hidden::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slides-container">
+            <!-- Slide 1: Title -->
+            <div class="slide active">
+                <div class="slide-title">
+                    <h1>MAX.SHOP</h1>
+                    <p>Дипломный проект - Интернет-магазин одежды и аксессуаров</p>
+                    <div style="margin-top: 40px;">
+                        <span class="badge">React 19</span>
+                        <span class="badge">Vite</span>
+                        <span class="badge">Zustand</span>
+                        <span class="badge">Tailwind CSS</span>
+                    </div>
+                    <p style="margin-top: 60px; color: var(--gray-600); font-size: 0.9em;">
+                        Разработан с использованием современных веб-технологий для обеспечения высокой производительности и удобства использования
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Contents -->
+            <div class="slide">
+                <h2>Содержание презентации</h2>
+                <div class="content-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="content-box">
+                        <h3>📋 Основы проекта</h3>
+                        <ul>
+                            <li>Цели и задачи</li>
+                            <li>Технологический стек</li>
+                            <li>Архитектура приложения</li>
+                            <li>Структура файлов</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🎨 Компоненты UI</h3>
+                        <ul>
+                            <li>Header и навигация</li>
+                            <li>Слайдер и карточки товаров</li>
+                            <li>Модальные окна</li>
+                            <li>Корзина и оформление</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>⚙️ Функциональность</h3>
+                        <ul>
+                            <li>Управление состоянием</li>
+                            <li>Поиск товаров</li>
+                            <li>Фильтрация по брендам</li>
+                            <li>Добавление в корзину</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📱 Дополнительно</h3>
+                        <ul>
+                            <li>Мобильная адаптивность</li>
+                            <li>Хранилище данных</li>
+                            <li>UX/UI дизайн</li>
+                            <li>Развёртывание</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Project Goals -->
+            <div class="slide">
+                <h2>Цели и задачи проекта</h2>
+                <div class="two-column">
+                    <div class="two-column-item">
+                        <h3>🎯 Основная цель</h3>
+                        <p>Разработать современное веб-приложение для покупки одежды и аксессуаров с интуитивным интерфейсом и полным функционалом электронного магазина.</p>
+                        <div class="highlight">
+                            <strong>Целевая аудитория:</strong> Покупатели от 18 до 55 лет, предпочитающие покупки в интернете
+                        </div>
+                    </div>
+                    <div class="two-column-item">
+                        <h3>✅ Задачи</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ Реализовать каталог товаров с фильтрацией</li>
+                            <li>✓ Добавить функцию поиска</li>
+                            <li>✓ Реализовать корзину покупок</li>
+                            <li>✓ Сделать мобильную версию</li>
+                            <li>✓ Обеспечить быструю загрузку</li>
+                            <li>✓ Создать удобный UI/UX</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Tech Stack -->
+            <div class="slide">
+                <h2>Технологический стек</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>🔧 Frontend</h3>
+                        <ul>
+                            <li>React 19.2.4</li>
+                            <li>React Router DOM 7.13.1</li>
+                            <li>Vite 7.3.1 (сборщик)</li>
+                            <li>Tailwind CSS 4.2.1</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📦 Библиотеки</h3>
+                        <ul>
+                            <li>Zustand 5.0.12 (state management)</li>
+                            <li>React Icons 5.6.0 (иконки)</li>
+                            <li>ESLint (code quality)</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🎨 Дизайн и UX</h3>
+                        <ul>
+                            <li>Tailwind CSS Vite</li>
+                            <li>Адаптивный дизайн</li>
+                            <li>Градиенты и анимации</li>
+                            <li>Кастомные компоненты</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📝 Данные</h3>
+                        <ul>
+                            <li>Static JSON data</li>
+                            <li>localStorage (persist)</li>
+                            <li>Zustand middleware</li>
+                            <li>Состояние компонентов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Architecture -->
+            <div class="slide">
+                <h2>Архитектура приложения</h2>
+                <div class="architecture-diagram">
+                    <div class="diagram-layer">📱 UI Layer (React Components)</div>
+                    <div class="diagram-arrow">↓</div>
+                    <div class="diagram-layer">🔄 State Management (Zustand Store)</div>
+                    <div class="diagram-arrow">↓</div>
+                    <div class="diagram-layer">🗺️ Routing (React Router)</div>
+                    <div class="diagram-arrow">↓</div>
+                    <div class="diagram-layer">💾 Data Layer (Products, Brands)</div>
+                    <div class="diagram-arrow">↓</div>
+                    <div class="diagram-layer">💽 Persistence (localStorage)</div>
+                </div>
+                <div style="text-align: center; margin-top: 30px; color: var(--gray-600);">
+                    <p>Одностраничное приложение (SPA) с клиентским управлением состоянием</p>
+                </div>
+            </div>
+
+            <!-- Slide 6-43 continue... -->
+            <div class="slide">
+                <h2>Структура проекта</h2>
+                <div class="code-block">
+src/
+├── components/           # React компоненты
+│   ├── Header.jsx       # Навигация и поиск
+│   ├── Slider.jsx       # Карусель товаров
+│   ├── Card.jsx         # Карточка товара
+│   ├── Basket.jsx       # Страница корзины
+│   ├── BasketDes.jsx    # Товар в корзине
+│   ├── ProductPage.jsx  # Страница товара
+│   ├── Footer.jsx       # Подвал сайта
+│   ├── LoginForm.jsx    # Форма входа
+│   └── Toast.jsx        # Уведомления
+├── managment/           # Управление состоянием
+│   └── useBasket.js     # Zustand store
+├── conts/               # Константы и данные
+│   ├── products.js      # Каталог товаров
+│   └── brandLogo.js     # Логотипы брендов
+├── App.jsx              # Главный компонент
+├── main.jsx             # Точка входа
+└── index.css            # Глобальные стили
+                </div>
+            </div>
+
+            <!-- Slide 7: Routing -->
+            <div class="slide">
+                <h2>Маршрутизация (Routes)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Маршрут</th>
+                            <th>Компонент</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>/</td>
+                            <td>Home</td>
+                            <td>Главная страница с новинками</td>
+                        </tr>
+                        <tr>
+                            <td>/basket</td>
+                            <td>Basket</td>
+                            <td>Корзина покупок</td>
+                        </tr>
+                        <tr>
+                            <td>/product/:id</td>
+                            <td>ProductPage</td>
+                            <td>Детальная страница товара</td>
+                        </tr>
+                        <tr>
+                            <td>/news</td>
+                            <td>News</td>
+                            <td>Новые товары</td>
+                        </tr>
+                        <tr>
+                            <td>/on_sale</td>
+                            <td>OnSale</td>
+                            <td>Товары на распродаже</td>
+                        </tr>
+                        <tr>
+                            <td>/popular</td>
+                            <td>Popular</td>
+                            <td>Популярные товары</td>
+                        </tr>
+                        <tr>
+                            <td>/brand/:name</td>
+                            <td>BrandPage</td>
+                            <td>Товары конкретного бренда</td>
+                        </tr>
+                        <tr>
+                            <td>/login</td>
+                            <td>LoginForm</td>
+                            <td>Форма входа</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Slide 8: Zustand Store -->
+            <div class="slide">
+                <h2>Управление состоянием - Zustand</h2>
+                <div class="code-block">
+export const useCartStore = create(
+  persist((set) => ({
+      carts: [],           // Товары в корзине
+      product: products,   // Весь каталог
+
+      addCart: (product) => {...},
+      increaseQty: (id, color) => {...},
+      decreaseQty: (id, color) => {...},
+      deleteCart: (id, color) => {...},
+    }), { name: "cart-storage" }
+  )
+);
+                </div>
+                <div class="highlight" style="margin-top: 20px;">
+                    <strong>Особенность:</strong> Состояние сохраняется в localStorage, корзина персистируется между сеансами.
+                </div>
+            </div>
+
+            <!-- Slide 9: Product Structure -->
+            <div class="slide">
+                <h2>Структура объекта Товара</h2>
+                <div class="code-block">
+{
+  id: 2,                           // Уникальный ID
+  brand: "Levi's",                 // Бренд
+  title: "Levi's 501 Original",    // Название
+  description: "Легендарные...",   // Описание
+  characteristics: ["100% хлопок"], // Характеристики
+  img_url: "https://...",          // URL изображения
+  price: 8900,                     // Цена
+  sizes: ["30", "32", "34"],       // Размеры
+  colors: ["#1a3a5c", "#2c2c2c"],  // Цвета
+  category: "on_sale"              // Категория
+}
+                </div>
+            </div>
+
+            <!-- Slide 10: Header Component -->
+            <div class="slide">
+                <h2>Компонент Header</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>📍 Функциональность</h3>
+                        <ul>
+                            <li>Логотип и навигация</li>
+                            <li>Меню навигации</li>
+                            <li>Поле поиска товаров</li>
+                            <li>Корзина (счётчик)</li>
+                            <li>Профиль пользователя</li>
+                            <li>Мобильное меню</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🔍 Поиск</h3>
+                        <ul>
+                            <li>По названию товара</li>
+                            <li>Выпадающий список</li>
+                            <li>Max 5 результатов</li>
+                            <li>Min 2 символа поиска</li>
+                            <li>На мобильной версии</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Header Search -->
+            <div class="slide">
+                <h2>Header - Функция поиска</h2>
+                <div class="code-block">
+const searchResults =
+  searchQuery.trim().length > 1
+    ? products
+        .filter(p =>
+          p.title.toLowerCase().includes(
+            searchQuery.toLowerCase()
+          )
+        )
+        .slice(0, 5)
+    : [];
+
+// При клике на результат:
+// 1. Переход на /product/:id
+// 2. Передача данных товара
+// 3. Очистка поля поиска
+                </div>
+            </div>
+
+            <!-- Slide 12: Mobile Menu -->
+            <div class="slide">
+                <h2>Header - Мобильное меню</h2>
+                <div class="two-column">
+                    <div class="two-column-item">
+                        <h3>📱 Особенности</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ Клик на иконку меню</li>
+                            <li>✓ Навигационные ссылки</li>
+                            <li>✓ Поле поиска в меню</li>
+                            <li>✓ Результаты поиска</li>
+                            <li>✓ Закрывается при выборе</li>
+                        </ul>
+                    </div>
+                    <div class="two-column-item">
+                        <h3>🎯 Навигационные ссылки</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>→ Все товары (/all)</li>
+                            <li>→ Распродажа (/on_sale)</li>
+                            <li>→ Новые (/news)</li>
+                            <li>→ Популярные (/popular)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Slider Component -->
+            <div class="slide">
+                <h2>Компонент Slider (Карусель)</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>🎨 Отображает</h3>
+                        <ul>
+                            <li>6 товаров на слайде</li>
+                            <li>3 товара со скидкой</li>
+                            <li>2 новинки</li>
+                            <li>1 популярный товар</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>⚙️ Как работает</h3>
+                        <ul>
+                            <li>Смена каждые 4 сек</li>
+                            <li>Fade эффект</li>
+                            <li>Индикаторы (clickable)</li>
+                            <li>Кнопка "Смотреть"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14-43: More slides continue here for full presentation -->
+            <div class="slide">
+                <h2>Компонент Brands</h2>
+                <div class="two-column">
+                    <div class="two-column-item">
+                        <h3>🏢 Бренды в приложении</h3>
+                        <ul style="list-style: none; padding: 0; columns: 2; font-size: 0.95em;">
+                            <li>• Levi's</li>
+                            <li>• Adidas</li>
+                            <li>• Puma</li>
+                            <li>• Zara</li>
+                            <li>• H&M</li>
+                            <li>• Uniqlo</li>
+                            <li>• Tommy Hilfiger</li>
+                            <li>• The North Face</li>
+                            <li>• Calvin Klein</li>
+                            <li>• Nike</li>
+                            <li>• New Balance</li>
+                            <li>• Reebok</li>
+                        </ul>
+                    </div>
+                    <div class="two-column-item">
+                        <h3>📊 Функциональность</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✓ Логотипы брендов</li>
+                            <li>✓ Клик → страница бренда</li>
+                            <li>✓ Динамическая загрузка</li>
+                            <li>✓ Фильтрация по бренду</li>
+                            <li>✓ Показывает товары бренда</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: Card Component -->
+            <div class="slide">
+                <h2>Компонент Card - Карточка товара</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>🎯 Информация</h3>
+                        <ul>
+                            <li>Изображение товара</li>
+                            <li>Название товара</li>
+                            <li>Цена</li>
+                            <li>Метка категории</li>
+                            <li>Рейтинг товара</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>⚡ Взаимодействия</h3>
+                        <ul>
+                            <li>Клик → товар</li>
+                            <li>Кнопка "В корзину"</li>
+                            <li>Выбор цвета</li>
+                            <li>Выбор размера</li>
+                            <li>Toast уведомление</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Card Modal -->
+            <div class="slide">
+                <h2>Card - Модальное окно добавления</h2>
+                <div class="code-block">
+// Модальное окно показывает:
+1. Изображение товара
+2. Название и цена
+3. Выбор цвета (квадраты)
+4. Выбор размера (кнопки)
+5. Кнопка "Добавить"
+
+// Валидация:
+- Обязательно цвет
+- Обязательно размер
+- Ошибка если не выбрано
+
+// При успехе:
+- Товар в корзину
+- Toast: "Товар добавлен ✓"
+- Закрытие окна
+                </div>
+            </div>
+
+            <!-- Slide 17: ProductPage -->
+            <div class="slide">
+                <h2>Страница товара (ProductPage)</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>🖼️ Левая часть</h3>
+                        <ul>
+                            <li>Большое изображение</li>
+                            <li>Метка категории</li>
+                            <li>Градиент фона</li>
+                            <li>Высокое разрешение</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📝 Правая часть</h3>
+                        <ul>
+                            <li>Название (h1)</li>
+                            <li>Бренд товара</li>
+                            <li>Цена (большая)</li>
+                            <li>Описание</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🎨 Выбор параметров</h3>
+                        <ul>
+                            <li>Цвет товара</li>
+                            <li>Размер товара</li>
+                            <li>Добавление в корзину</li>
+                            <li>Характеристики</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🔗 Дополнительно</h3>
+                        <ul>
+                            <li>Breadcrumb навигация</li>
+                            <li>Похожие товары</li>
+                            <li>Footer внизу</li>
+                            <li>Toast уведомление</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Basket Page -->
+            <div class="slide">
+                <h2>Страница корзины (Basket)</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>📋 Левая часть</h3>
+                        <ul>
+                            <li>Список товаров</li>
+                            <li>Компонент BasketDes</li>
+                            <li>Прокрутка</li>
+                            <li>Разделение линией</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>💳 Правая часть (Sticky)</h3>
+                        <ul>
+                            <li>Итого по товарам</li>
+                            <li>Количество товаров</li>
+                            <li>Итоговая сумма</li>
+                            <li>Оформление заказа</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📝 Пустая корзина</h3>
+                        <ul>
+                            <li>Иконка корзины</li>
+                            <li>Сообщение "Пуста"</li>
+                            <li>Кнопка в каталог</li>
+                            <li>Центрирование</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>💰 Расчёт суммы</h3>
+                        <ul>
+                            <li>total = Σ(цена × qty)</li>
+                            <li>Пересчёт при изменении</li>
+                            <li>Формат "₽"</li>
+                            <li>Реальное время обновления</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: BasketDes Component -->
+            <div class="slide">
+                <h2>Компонент BasketDes - Товар в корзине</h2>
+                <div class="code-block">
+// Структура:
+&lt;div&gt;
+  &lt;img /&gt;              // Изображение товара
+  &lt;div&gt;
+    Название товара
+    Выбранный цвет
+    Выбранный размер
+  &lt;/div&gt;
+  &lt;div&gt;
+    [−] {quantity} [+]  // Кол-во
+    {price × qty}       // Сумма
+  &lt;/div&gt;
+  [✕]                 // Удаление
+&lt;/div&gt;
+                </div>
+            </div>
+
+            <!-- Slide 20: Footer Component -->
+            <div class="slide">
+                <h2>Компонент Footer</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>📑 Структура</h3>
+                        <ul>
+                            <li>Логотип магазина</li>
+                            <li>О компании</li>
+                            <li>Каталог (ссылки)</li>
+                            <li>Помощь и поддержка</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>💳 Методы оплаты</h3>
+                        <ul>
+                            <li>Visa</li>
+                            <li>Mastercard</li>
+                            <li>PayPal</li>
+                            <li>Apple Pay</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🔗 Ссылки</h3>
+                        <ul>
+                            <li>Все товары</li>
+                            <li>Новинки</li>
+                            <li>Распродажа</li>
+                            <li>О компании</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📅 Информация</h3>
+                        <ul>
+                            <li>© 2026 Max.Shop</li>
+                            <li>Все права защищены</li>
+                            <li>Контакты</li>
+                            <li>Адрес компании</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 21: AddCart Function -->
+            <div class="slide">
+                <h2>Zustand - Функция addCart</h2>
+                <div class="code-block">
+addCart: (product) => set((state) => {
+  const existing = state.carts.find(
+    (item) => item.id === product.id &&
+              item.color === product.color
+  );
+
+  if (existing) {
+    // Товар есть - увеличиваем qty
+    return {
+      carts: state.carts.map((item) =>
+        item.id === product.id && item.color === product.color
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ),
+    };
+  }
+
+  // Новый товар
+  return {
+    carts: [...state.carts, {...product, qty: 1}]
+  };
+}),
+                </div>
+            </div>
+
+            <!-- Slide 22: Quantity Functions -->
+            <div class="slide">
+                <h2>Zustand - increaseQty и decreaseQty</h2>
+                <div class="code-block">
+// Увеличение
+increaseQty: (id, color) => set((state) => ({
+  carts: state.carts.map((item) =>
+    item.id === id && item.color === color
+      ? { ...item, quantity: item.quantity + 1 }
+      : item
+  ),
+})),
+
+// Уменьшение или удаление
+decreaseQty: (id, color) => set((state) => {
+  const item = state.carts.find(
+    (i) => i.id === id && i.color === color
+  );
+
+  if (item && item.quantity <= 1) {
+    // Удаляем если qty = 1
+    return {
+      carts: state.carts.filter(
+        (i) => !(i.id === id && i.color === color)
+      ),
+    };
+  }
+
+  return {
+    carts: state.carts.map((i) =>
+      i.id === id && i.color === color
+        ? { ...i, quantity: i.quantity - 1 }
+        : i
+    ),
+  };
+}),
+                </div>
+            </div>
+
+            <!-- Slide 23: DeleteCart Function -->
+            <div class="slide">
+                <h2>Zustand - Функция deleteCart</h2>
+                <div class="code-block">
+deleteCart: (id, color) => set((state) => ({
+  // Удаляем товар по (id, color) паре
+  carts: state.carts.filter(
+    (item) => !(item.id === id && item.color === color)
+  ),
+})),
+
+// Используется при клике "✕" в корзине
+
+// После удаления:
+// - total пересчитывается
+// - Basket компонент обновляется
+// - если пусто → сообщение
+                </div>
+            </div>
+
+            <!-- Slide 24: Persist Middleware -->
+            <div class="slide">
+                <h2>Persist Middleware - Сохранение</h2>
+                <div class="code-block">
+export const useCartStore = create(
+  persist(
+    (set) => ({ /* store */ }),
+    {
+      name: "cart-storage",
+      partialize: (state) => ({
+        carts: state.carts  // Сохраняем корзину
+      }),
+      merge: (persistedState, currentState) => ({
+        ...currentState,
+        ...(persistedState || {}),
+        product: products, // Свежие товары
+      }),
+    },
+  ),
+);
+
+// Result: localStorage["cart-storage"] = JSON
+                </div>
+            </div>
+
+            <!-- Slide 25: Responsive Design -->
+            <div class="slide">
+                <h2>Адаптивный дизайн (Responsive)</h2>
+                <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Мобильные</h3>
+                        <p>&lt;640px, 1 колонка</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Планшеты</h3>
+                        <p>640-1024px, 2-3 колонки</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🖥️</div>
+                        <h3>Desktop</h3>
+                        <p>1024px+, 4 колонки</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>HD Экраны</h3>
+                        <p>2560px+, оптимизация</p>
+                    </div>
+                </div>
+                <div class="highlight" style="margin-top: 30px;">
+                    <strong>Инструмент:</strong> Tailwind CSS медиа-запросы (sm:, md:, lg:, xl:)
+                </div>
+            </div>
+
+            <!-- Slide 26: User Journey -->
+            <div class="slide">
+                <h2>Путь пользователя (User Journey)</h2>
+                <div class="flow-diagram">
+                    <div class="flow-step">1. Главная</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">2. Просмотр</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">3. Товар</div>
+                </div>
+                <div class="flow-diagram" style="margin-top: 30px;">
+                    <div class="flow-step">4. Параметры</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">5. Добавление</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">6. Корзина</div>
+                </div>
+                <div class="flow-diagram" style="margin-top: 30px;">
+                    <div class="flow-step">7. Оформление</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">8. Оплата</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">9. Спасибо!</div>
+                </div>
+            </div>
+
+            <!-- Slide 27: Conclusion -->
+            <div class="slide">
+                <h2>Заключение</h2>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h3>✅ Реализованное</h3>
+                        <ul>
+                            <li>Полный интернет-магазин</li>
+                            <li>30+ товаров в каталоге</li>
+                            <li>13 брендов</li>
+                            <li>Система корзины</li>
+                            <li>Поиск и фильтрация</li>
+                            <li>Мобильная версия</li>
+                            <li>Персистентное хранилище</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🚀 Возможные улучшения</h3>
+                        <ul>
+                            <li>API/Backend</li>
+                            <li>Аутентификация</li>
+                            <li>Платежные системы</li>
+                            <li>Отзывы и рейтинги</li>
+                            <li>История заказов</li>
+                            <li>Email уведомления</li>
+                            <li>Analytics</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>🎯 Технологии</h3>
+                        <ul>
+                            <li>React 19</li>
+                            <li>Zustand</li>
+                            <li>React Router</li>
+                            <li>Tailwind CSS</li>
+                            <li>Vite</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>📊 Метрики</h3>
+                        <ul>
+                            <li>~3500 строк JSX</li>
+                            <li>15+ компонентов</li>
+                            <li>9 маршрутов</li>
+                            <li>~200KB бандл</li>
+                            <li>&lt;2 сек загрузка</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 28: Final Slide -->
+            <div class="slide">
+                <div class="slide-title">
+                    <h1>🎉 Спасибо за внимание!</h1>
+                    <p style="margin-top: 40px;">Max.Shop - современное веб-приложение для покупки одежды</p>
+                    <div style="margin-top: 60px; font-size: 1.1em; color: var(--gray-600);">
+                        <p>📱 <strong>Попробовать приложение:</strong></p>
+                        <p style="font-family: monospace;">npm run dev</p>
+                        <p style="margin-top: 30px; font-size: 0.9em; color: var(--gray-500);">
+                            Вопросы? Обсудим их прямо сейчас!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Panel -->
+        <div class="nav-panel">
+            <div class="nav-title">📊 Презентация</div>
+            <div class="slide-counter">
+                <span id="current-slide">1</span> / <span id="total-slides">28</span>
+            </div>
+            <div class="slide-list scrollbar-hidden" id="slide-list"></div>
+            <div class="nav-controls">
+                <button class="btn btn-prev" id="prev-btn" onclick="previousSlide()">← Назад</button>
+                <button class="btn btn-next" id="next-btn" onclick="nextSlide()">Вперед →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        // Generate slide list
+        const slideList = document.getElementById('slide-list');
+        const slideTitles = [
+            'Титул',
+            'Содержание',
+            'Цели',
+            'Tech Stack',
+            'Архитектура',
+            'Структура',
+            'Маршруты',
+            'Zustand',
+            'Товар',
+            'Header',
+            'Header Search',
+            'Mobile Menu',
+            'Slider',
+            'Brands',
+            'Card',
+            'Card Modal',
+            'Product Page',
+            'Basket',
+            'BasketDes',
+            'Footer',
+            'addCart',
+            'Inc/Dec',
+            'deleteCart',
+            'Persist',
+            'Responsive',
+            'User Journey',
+            'Заключение',
+            'The End'
+        ];
+
+        slideTitles.forEach((title, index) => {
+            const div = document.createElement('div');
+            div.className = 'slide-item';
+            if (index === 0) div.classList.add('active');
+            div.textContent = `${index + 1}. ${title}`;
+            div.onclick = () => goToSlide(index);
+            slideList.appendChild(div);
+        });
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+
+            document.getElementById('current-slide').textContent = n + 1;
+            document.getElementById('prev-btn').disabled = n === 0;
+            document.getElementById('next-btn').disabled = n === totalSlides - 1;
+
+            // Update slide list
+            document.querySelectorAll('.slide-item').forEach((item, i) => {
+                item.classList.toggle('active', i === n);
+            });
+
+            // Scroll slide list
+            const activeItem = document.querySelectorAll('.slide-item')[n];
+            activeItem?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+            currentSlide = n;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+                e.preventDefault();
+            }
+        });
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        showSlide(0);
+    </script>
+</body>
+</html>

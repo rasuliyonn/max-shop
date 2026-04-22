@@ -51,7 +51,7 @@ const Basket = () => {
               <h2 className="text-xl font-bold mb-4">Итого</h2>
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>Товары ({carts.reduce((acc, item) => acc + (item.quantity || 1), 0)})</span>
-                <span>{total} ₽</span>
+                <span>{total} с</span>
               </div>
               <div className="border-t border-gray-200 pt-4 mt-4">
                 <div className="flex justify-between font-bold text-lg">
