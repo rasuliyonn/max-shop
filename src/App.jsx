@@ -23,6 +23,7 @@ const Home = () => {
     brand,
     logo,
   }));
+  const tt = ""
   const navigate = useNavigate();
   const product = useCartStore((state) => state.product);
   const newProducts = product
